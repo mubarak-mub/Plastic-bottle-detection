@@ -1,0 +1,46 @@
+import network
+import socket
+from machine import Pin
+
+# تهيئة الليد
+led = Pin(23, Pin.OUT)
+led2 = Pin(22, Pin.OUT)
+print("Waiting for connection...")
+
+# إعداد الواي فاي
+ssid = "Galaxy Note10+1255"
+password = "11111111"
+
+station = network.WLAN(network.STA_IF)
+station.active(True)
+station.connect(ssid, password)
+
+while not station.isconnected():
+    pass
+
+print("Connected, IP:", station.ifconfig()[0])
+
+# فتح سيرفر TCP
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 1234))   # المنفذ 1234
+s.listen(1)
+print("Waiting for connection...")
+
+conn, addr = s.accept()
+print("Got connection from", addr)
+
+while True:
+    data = conn.recv(1024)
+    if not data:
+        break
+    cmd = data.decode().strip()
+    print("Received:", cmd)
+
+    if cmd == "on":
+        led2.off()
+        led.on()
+    elif cmd == "off":
+        led2.on()
+        led.off()
+
+
