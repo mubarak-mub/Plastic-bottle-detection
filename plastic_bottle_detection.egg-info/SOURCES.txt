@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+plastic_bottle_detection.egg-info/PKG-INFO
+plastic_bottle_detection.egg-info/SOURCES.txt
+plastic_bottle_detection.egg-info/dependency_links.txt
+plastic_bottle_detection.egg-info/requires.txt
+plastic_bottle_detection.egg-info/top_level.txt
